@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_weather_app/features/weather_screen/widgets/home_screen.dart';
 import 'package:simple_weather_app/repositories/weather_model.dart';
 import 'package:simple_weather_app/repositories/weather_service.dart';
 
@@ -10,26 +11,31 @@ class CurrentWeatherScreen extends StatefulWidget {
 }
 
 class _CurrentWeatherScreenState extends State<CurrentWeatherScreen> {
-  late Future<WeatherResponse> _weather;
+  late Future<WeatherResponse> weather;
 
   @override
   void initState() {
-    _weather = WeatherService().fetchWeather();
+    weather = WeatherService().fetchWeather();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Weather App'),
-      ),
+      backgroundColor: Color.fromRGBO(168, 79, 171, 1),
+      // appBar: AppBar(
+      //   backgroundColor: Color.fromRGBO(168, 79, 171, 1),
+      //   title: Text(
+      //     'Weather App',
+      //     style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+      //   ),
+      // ),
       body: Center(
         child: FutureBuilder(
-          future: _weather,
+          future: weather,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text('Данные получены');
+              return HomeScreen(weather: snapshot.requireData);
             } else {
               return CircularProgressIndicator();
             }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:simple_weather_app/features/weather_screen/widgets/home_screen.dart';
 import 'package:simple_weather_app/repositories/weather_model.dart';
 import 'package:simple_weather_app/repositories/weather_service.dart';
+
+import '../widgets/main_weather_widget.dart';
 
 class CurrentWeatherScreen extends StatefulWidget {
   const CurrentWeatherScreen({super.key});
@@ -35,7 +36,9 @@ class _CurrentWeatherScreenState extends State<CurrentWeatherScreen> {
           future: weather,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return HomeScreen(weather: snapshot.requireData);
+              return MainWeatherWidget(
+                weather: snapshot.requireData,
+              );
             } else {
               return CircularProgressIndicator();
             }

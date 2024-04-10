@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:simple_weather_app/repositories/weather_model.dart';
 
 class MainWeatherWidget extends StatelessWidget {
@@ -7,6 +8,10 @@ class MainWeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String formattedTime = DateFormat('HH:mm').format(now);
+    String formattedDate = DateFormat('dd.MM.yyyy').format(now);
+
     return SafeArea(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -26,7 +31,7 @@ class MainWeatherWidget extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Image.asset('assets/4.png'),
+            Image.asset(getWeatherImage(weather.cod)),
             Center(
               child: Column(
                 children: [
@@ -50,7 +55,7 @@ class MainWeatherWidget extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    'Вторник - 15:12',
+                    '${formattedDate} - ${formattedTime}',
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 16,
@@ -193,5 +198,26 @@ class MainWeatherWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getWeatherImage(int weatherCod) {
+    int firstDigit = weatherCod ~/ 100;
+
+    switch (firstDigit) {
+      case 2:
+        return 'assets/7.png';
+      case 3:
+        return 'assets/2.png';
+      case 5:
+        return 'assets/3.png';
+      case 6:
+        return 'assets/4.png';
+      case 7:
+        return 'assets/5.png';
+      case 8:
+        return 'assets/6.png';
+      default:
+        return 'assets/8.png';
+    }
   }
 }

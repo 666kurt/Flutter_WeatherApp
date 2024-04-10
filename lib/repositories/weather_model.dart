@@ -2,11 +2,13 @@ class WeatherResponse {
   List<Weather> weather;
   Main main;
   String name;
+  int cod;
 
   WeatherResponse({
     required this.weather,
     required this.main,
     required this.name,
+    required this.cod,
   });
 
   factory WeatherResponse.fromJson(Map<String, dynamic> json) {
@@ -16,6 +18,7 @@ class WeatherResponse {
           .toList(),
       main: Main.fromJson(json['main']),
       name: json['name'],
+      cod: json['cod'],
     );
   }
 }
